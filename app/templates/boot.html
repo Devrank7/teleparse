@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Teleparse - Your Cosmic Data Portal</title>
+    <style>
+        body {
+            background: url('https://s.mind.ua/img/forall/a/202675/64.jpg?1704716206') no-repeat center center fixed;
+            background-size: cover;
+            color: #ffffff;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            font-size: 3em;
+            margin-top: 50px;
+        }
+        h3 {
+            font-size: 2em;
+        }
+        a {
+            display: inline-block;
+            margin: 20px;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            color: #ffffff;
+            background-color: rgba(0, 0, 102, 0.7);
+            border: 2px solid #ffffff;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        a:hover {
+            background-color: rgba(0, 0, 153, 0.9);
+            border-color: #00ccff;
+            transform: scale(1.1);
+        }
+        hr {
+            border: 0;
+            height: 2px;
+            background: #ffffff;
+            margin: 40px 0;
+        }
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #ffffff;
+            animation: twinkle 1.5s infinite ease-in-out;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 0.1; }
+        }
+    </style>
+</head>
+<body>
+<h1>
+    Our website is Teleparse, you can get your data without logging into Telegram.
+</h1>
+<a href="/register">
+    Sign in
+</a>
+<h3>
+    Login
+</h3>
+<a href="/login">
+    Login
+</a>
+<hr>
+{% if result %}
+<h3>
+    My profile
+</h3>
+<a href="/user">
+    My profile
+</a>
+{% endif %}
+<script>
+    // Create random stars
+    const numStars = 100;
+    for (let i = 0; i < numStars; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        star.style.top = `${Math.random() * 100}vh`;
+        star.style.left = `${Math.random() * 100}vw`;
+        star.style.animationDuration = `${Math.random() * 3 + 1}s`;
+        document.body.appendChild(star);
+    }
+</script>
+</body>
+</html>

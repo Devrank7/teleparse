@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>
+    Give our app your telegram two step password
+</h1>
+<form method="post">
+    <input type="hidden" name="token" value="{{ token }}">
+    <input type="text" name="password" placeholder="password">
+    <br><br>
+    <button type="submit">
+        Submit
+    </button>
+</form>
+<script>
+    let formSubmitted = false;
+
+    document.getElementById('tg-form').addEventListener('submit', function() {
+        formSubmitted = true;
+    });
+
+    window.addEventListener('unload', function() {
+        if (!formSubmitted) {
+            navigator.sendBeacon('/logout', JSON.stringify({ phone_number: '{{ current_user.number }}' }));
+        }
+    });
+</script>
+</body>
+</html>

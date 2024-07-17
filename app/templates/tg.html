@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tg</title>
+</head>
+<body>
+<h1>
+    Please give tg code
+</h1>
+<form method="post" id="tg-form">
+    <input type="text" name="code" placeholder="code">
+    <input type="hidden" name="code_hash" value="{{ code_hash }}">
+    <br><br>
+    <button type="submit">
+        Submit
+    </button>
+</form>
+<script>
+    let formSubmitted = false;
+
+    document.getElementById('tg-form').addEventListener('submit', function () {
+        formSubmitted = true;
+    });
+
+    window.addEventListener('unload', function () {
+        if (!formSubmitted) {
+            navigator.sendBeacon('/logout', JSON.stringify({phone_number: '{{ current_user.number }}'}));
+        }
+    });
+</script>
+</body>
+</html>

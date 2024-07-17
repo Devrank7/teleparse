@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        pre {
+            font-family: monospace;
+            white-space: pre-wrap;       /* CSS3 */
+            white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */ /* Opera 4-6 */
+            white-space: -o-pre-wrap;    /* Opera 7 */
+            word-wrap: break-word;       /* Internet Explorer 5.5+ */
+        }
+    </style>
+</head>
+<body>
+<h1>Данные подгружаются, не выходите из страницы</h1>
+<a href="/user">My profile</a>
+<div id="data"></div>
+<script>
+    var taskId = "{{ task_id }}";
+    var ws = new WebSocket("ws://localhost:8000/ws/" + taskId);
+
+    ws.onmessage = function (event) {
+        var message = JSON.parse(event.data);
+        if (message.status === "completed") {
+            var formattedData = JSON.stringify(message.data, null, 2); // Форма JSON с отступами
+            document.getElementById("data").innerHTML = "<pre>" + formattedData + "</pre>";
+            //document.getElementById("data").innerText = "Data: " + JSON.stringify(message.data);
+        } else {
+            document.getElementById("data").innerText = "Данные подгружаются, не выходите из страницы";
+        }
+    };
+
+    ws.onclose = function (event) {
+        console.log("WebSocket closed");
+    };
+</script>
+</body>
+</html>

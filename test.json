@@ -1,0 +1,28 @@
+{
+  "user": "Name",
+  "Extra data": "...",
+  "chats": [
+    {
+      "chat_name": {
+        "id": "123",
+        "link": "link",
+        "message": [
+          "m1",
+          "m2",
+          "m3"
+        ]
+      }
+    },
+    {
+      "chat_name1": {
+        "id": "321",
+        "link": "link",
+        "message": [
+          "m1",
+          "m2",
+          "m3"
+        ]
+      }
+    }
+  ]
+}
