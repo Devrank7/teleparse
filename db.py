@@ -2,7 +2,7 @@ from sqlalchemy import BigInteger, String, Select, Boolean
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncAttrs
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
-engine = create_async_engine(url='postgresql+asyncpg://postgres:boot@localhost:7432/stream_sql', echo=True)
+engine = create_async_engine(url='postgresql+asyncpg://postgres:boot@db:5432/stream_sql', echo=True)
 session_as = async_sessionmaker(engine)
 
 

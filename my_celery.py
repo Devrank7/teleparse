@@ -4,10 +4,10 @@ from celery import Celery
 
 from main1 import get_data_all
 
-apps = Celery('my_project', broker='redis://localhost:6379/0')
+apps = Celery('my_project', broker='redis://redis:6379/0')
 
 apps.conf.update(
-    result_backend='redis://localhost:6379/0',
+    result_backend='redis://redis:6379/0',
     task_serializer='json',
     result_serializer='json',
     accept_content=['json'],
