@@ -53,7 +53,6 @@ services:
       - "443:443"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
-      - ./certbot/live/bycby.pp.ua:/etc/letsencrypt/live/bycby.pp.ua
     depends_on:
       - web
 
