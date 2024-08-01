@@ -8,6 +8,7 @@ from celery.result import AsyncResult
 from dotenv import load_dotenv
 from fastapi import FastAPI, WebSocket, Depends, BackgroundTasks, Query
 from fastapi import Request, Form, Response
+from starlette.middleware.cors import CORSMiddleware
 from starlette.middleware.sessions import SessionMiddleware
 from starlette.responses import HTMLResponse, RedirectResponse
 from starlette.templating import Jinja2Templates
@@ -46,6 +47,7 @@ def get_data_from_token(token: str) -> Optional[dict]:
 
 # Инициализация словаря токенов
 tokens = {}
+
 
 
 @app.exception_handler(RedirectException)
@@ -325,3 +327,14 @@ async def get_admin(password: str = Form(...), current_user: db.VUser = Depends(
         return "You are admin"
     else:
         return "Password is incorrect"
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:8000",
+        "http://34.67.95.102"
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"]
+)
