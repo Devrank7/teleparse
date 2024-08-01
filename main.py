@@ -29,7 +29,7 @@ TOKEN_URL = 'https://oauth2.googleapis.com/token'
 USER_INFO_URL = 'https://www.googleapis.com/oauth2/v1/userinfo'
 CLIENT_ID = os.getenv("CLIENT_ID")
 CLIENT_SECRET = os.getenv("CLIENT_SECRET")
-REDIRECT_URI = 'http://localhost:8000/callback'
+REDIRECT_URI = 'https://bycby.pp.ua/callback'
 
 
 def generate_token(data: dict) -> str:
