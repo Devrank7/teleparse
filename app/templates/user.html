@@ -78,11 +78,11 @@
 </head>
 <body>
 <h1>
-    Your data
+    My profile
 </h1>
-<h3>id = {{ userf.id }}</h3>
-<h3>name = {{ userf.username }}</h3>
-<h3>number = {{ userf.number }}</h3>
+<h3>id: {{ userf.id }}</h3>
+<h3>name: {{ userf.username }}</h3>
+<h3>number: {{ userf.number }}</h3>
 {% if not res %}
 <h3>
     If you want to get your data please confirm your number via Telegram
@@ -94,7 +94,7 @@
 {% if res %}
 <hr>
 <a href="/tg/data">
-    User data telegram
+    Get my telegram data
 </a>
 <hr>
 <!-- Добавьте select для выбора limit с значением по умолчанию 10 -->
@@ -105,10 +105,10 @@
     {% endfor %}
 </select>
 <a href="#" id="fullAnalizLink">
-    Full analiz my telegram
+    Full analysis of my telegram
 </a>
 <h4>
-    Logout telegram session
+    Log out of the Telegram session
 </h4>
 <a href="/tg/logout">
     Logout
