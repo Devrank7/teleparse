@@ -263,6 +263,7 @@ async def tg_data_all(request: Request, limit: int = Query(10),
 
 @app.websocket("/ws/{task_id}")
 async def websocket_endpoint(websocket: WebSocket, task_id: str):
+    print("HI SOCKET")
     await websocket.accept()
     while True:
         task_result = AsyncResult(task_id)
