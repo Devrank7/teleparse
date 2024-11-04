@@ -19,7 +19,7 @@
 <div id="data"></div>
 <script>
     var taskId = "{{ task_id }}";
-    var ws = new WebSocket("ws://localhost:8000/ws/" + taskId);
+    var ws = new WebSocket("wss://bycby.pp.ua/ws/" + taskId);
 
     ws.onmessage = function (event) {
         var message = JSON.parse(event.data);
