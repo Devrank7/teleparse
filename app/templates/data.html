@@ -24,12 +24,16 @@
         console.log("WebSocket connection established");
     };
 
-    ws.onerror = (error) => {
-        console.error("WebSocket error:", error);
+    ws.onerror = function(error) {
+        console.log("Произошла ошибка WebSocket:", error);
     };
 
-    ws.onclose = (event) => {
-        console.log("WebSocket connection closed:", event);
+    ws.onclose = function(event) {
+        if (event.wasClean) {
+            console.log(`Соединение закрыто чисто, код=${event.code} причина=${event.reason}`);
+        } else {
+            console.log(`Соединение прервано, код=${event.code}`);
+        }
     };
 
     ws.onmessage = function (event) {
@@ -41,10 +45,6 @@
         } else {
             document.getElementById("data").innerText = "Данные подгружаются, не выходите из страницы";
         }
-    };
-
-    ws.onclose = function (event) {
-        console.log("WebSocket closed");
     };
 </script>
 </body>

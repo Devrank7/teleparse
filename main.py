@@ -332,8 +332,9 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:8000",
-        "http://34.67.95.102"
-        "https://bycby.pp.ua"
+        "http://34.67.95.102",
+        "https://bycby.pp.ua",
+        "http://web:8000",
     ],
     allow_credentials=True,
     allow_methods=["*"],
