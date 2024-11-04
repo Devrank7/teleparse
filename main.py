@@ -12,6 +12,7 @@ from starlette.middleware.cors import CORSMiddleware
 from starlette.middleware.sessions import SessionMiddleware
 from starlette.responses import HTMLResponse, RedirectResponse
 from starlette.templating import Jinja2Templates
+from starlette.websockets import WebSocketDisconnect
 
 import db
 import main1
@@ -31,6 +32,14 @@ CLIENT_ID = os.getenv("CLIENT_ID")
 CLIENT_SECRET = os.getenv("CLIENT_SECRET")
 REDIRECT_URI = 'https://bycby.pp.ua/callback'
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"]
+)
+
 
 def generate_token(data: dict) -> str:
     token = secrets.token_urlsafe(16)
@@ -47,7 +56,6 @@ def get_data_from_token(token: str) -> Optional[dict]:
 
 # Инициализация словаря токенов
 tokens = {}
-
 
 
 @app.exception_handler(RedirectException)
@@ -264,16 +272,19 @@ async def tg_data_all(request: Request, limit: int = Query(10),
 @app.websocket("/ws/{task_id}")
 async def websocket_endpoint(websocket: WebSocket, task_id: str):
     print("HI SOCKET")
-    await websocket.accept()
-    while True:
-        task_result = AsyncResult(task_id)
-        if task_result.ready():
-            await websocket.send_json({"status": "completed", "data": task_result.result})
-            break
-        else:
-            await websocket.send_json({"status": "loading"})
-        time.sleep(1)
-    await websocket.close()
+    try:
+        await websocket.accept()
+        while True:
+            task_result = AsyncResult(task_id)
+            if task_result.ready():
+                await websocket.send_json({"status": "completed", "data": task_result.result})
+                break
+            else:
+                await websocket.send_json({"status": "loading"})
+            time.sleep(1)
+        await websocket.close()
+    except WebSocketDisconnect as e:
+        print(f"Client {e} disconnected")
 
 
 @app.get("/tg/logout")
@@ -328,16 +339,3 @@ async def get_admin(password: str = Form(...), current_user: db.VUser = Depends(
         return "You are admin"
     else:
         return "Password is incorrect"
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=[
-        "http://localhost:8000",
-        "http://34.67.95.102",
-        "https://bycby.pp.ua",
-        "http://web:8000",
-    ],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"]
-)
