@@ -333,6 +333,7 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:8000",
         "http://34.67.95.102"
+        "https://bycby.pp.ua"
     ],
     allow_credentials=True,
     allow_methods=["*"],
