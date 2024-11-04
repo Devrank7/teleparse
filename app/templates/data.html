@@ -20,7 +20,7 @@
 <script>
     function connectWebSocket() {
         var taskId = "{{ task_id }}";
-        var ws = new WebSocket("ws://bycby.pp.ua/ws/" + taskId);
+        var ws = new WebSocket("wss://bycby.pp.ua/ws/" + taskId);
         ws.onopen = function() {
             console.log("Соединение открыто");
         };
